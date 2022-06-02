@@ -7,7 +7,7 @@ struct Display {
     std::array<uint8_t, 64 * 32> display{};
     uint8_t width = 64;
     uint8_t height = 32;
-    uint8_t set_pixel(uint8_t x, uint8_t y, uint8_t value);
+    uint8_t set_pixel(uint8_t x, uint8_t y);
 };
 
 struct Chip8 {
@@ -23,4 +23,5 @@ struct Chip8 {
 
     void tick();
     void load_rom(const std::string& sv);
+    void clear_keyboard();
 };
