@@ -141,7 +141,6 @@ void Chip8::tick() {
 
     for (auto i = 0u; i < height; i++) {
       auto sprite = memory[I + i];
-      auto bs = std::bitset<8>{sprite};
       for (auto j = 0u; j < width; j++) {
         if ((sprite & 0x80) > 0)
           if (display.set_pixel(V[x] + j, V[y] + i))
