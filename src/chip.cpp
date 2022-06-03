@@ -38,8 +38,8 @@ static_assert(get_kk(0xABCD) == 0xCD);
 
 void Chip8::tick() {
     const uint16_t opcode = (memory[pc] << 8) | memory[pc + 1];
-	fmt::print("opcode = {:X}\n", opcode);
-	fmt::print("pc = {:X}\n", pc);
+	// fmt::print("opcode = {:X}\n", opcode);
+	// fmt::print("pc = {:X}\n", pc);
     auto x = get_x(opcode);
     auto y = get_y(opcode);
     auto kk = get_kk(opcode);

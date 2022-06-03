@@ -2,9 +2,13 @@
 #include "chip.hpp"
 int main(int argc, char ** argv) {
   sf::RenderWindow window(sf::VideoMode(640, 320), "SFML window");
-  window.setFramerateLimit(60);
+  window.setFramerateLimit(540);
   Chip8 chip{};
   chip.load_rom(argv[1]);
+    sf::Image img;
+    sf::Texture txt{};
+    sf::Sprite sprite{};
+
   while (window.isOpen()) {
     // Process events
     sf::Event event;
@@ -64,26 +68,14 @@ int main(int argc, char ** argv) {
     }
     chip.tick();
     auto& display = chip.display.display;
-    std::vector<sf::Uint8> imageData{};
-    std::ranges::for_each(display, [&imageData](uint8_t v) {
-      if(v == 1) {
-        imageData.push_back(0xFF);
-        imageData.push_back(0);
-        imageData.push_back(0);
-        imageData.push_back(0xFF);
-      } else {
-        imageData.push_back(0);
-        imageData.push_back(0);
-        imageData.push_back(0);
-        imageData.push_back(0xFF);
-      }
-    });
-    sf::Image img;
-    img.create(64, 32, imageData.data());
-    sf::Texture txt{};
+
+    img.create(64, 32);
+	for(auto i =0u; i < 64; i++)
+		for(auto j =0u; j < 32; j++)
+			if(display[i + (j * 64)] == 1)
+				img.setPixel(i, j, sf::Color::Cyan);
     txt.create(64, 32);
     txt.update(img);
-    sf::Sprite sprite{};
     sprite.setTexture(txt);
     sprite.setScale(10,10);
     window.clear();
